@@ -8,9 +8,8 @@ import javax.persistence.Id;
 @Entity
 public class Room {
 
-    @Id
-    @GeneratedValue
-    private long id;
+    @Id @GeneratedValue
+    private long roomId;
 
     @Column(nullable = false)
     private String name;
@@ -18,12 +17,12 @@ public class Room {
     @Column(nullable = false)
     private String description;
 
-    public long getId() {
-        return id;
+    public long getRoomId() {
+        return roomId;
     }
 
-    void setId(long id) {
-        this.id = id;
+    void setRoomId(long roomId) {
+        this.roomId = roomId;
     }
 
     public String getName() {
@@ -44,6 +43,6 @@ public class Room {
 
     @Override
     public String toString() {
-    	return getId() + "," + getName() + "," + getDescription();
+    	return getRoomId() + "," + getName() + "," + getDescription();
     }
 }

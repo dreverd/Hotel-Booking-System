@@ -1,47 +1,50 @@
 package com.aegon.booking.model;
 
-import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Booking {
-	private long id;
+	@Id @GeneratedValue
+	private long bookingId;
 
-    @Column(nullable = false)
-	private long roomId;
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "roomId")
+	private Room room;
 
-    @Column(nullable = false)
-    private String customerName;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "customerId")
+    private Customer customer;
 	
-    @Id
-    @GeneratedValue
-    public long getId() {
-        return id;
+    public long getBookingId() {
+        return bookingId;
     }
 
-    void setId(long id) {
-        this.id = id;
+    void setBookingId(long id) {
+        this.bookingId = id;
     }	
 
-    public long getRoomId() {
-        return roomId;
+    public Room getRoom() {
+        return room;
     }
 
-    public void setRoomId(long roomId) {
-        this.roomId = roomId;
+    public void setRoom(Room room) {
+        this.room = room;
     }
 
-    public String getCustomerName() {
-        return customerName;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public void setCustomerId(Customer customer) {
+        this.customer = customer;
     }
 	
     @Override
 	public String toString() {
-		return getId() + "," + getRoomId() + "," + getCustomerName();
+		return getBookingId() + "," + getRoom() + "," + getCustomer();
 	}}

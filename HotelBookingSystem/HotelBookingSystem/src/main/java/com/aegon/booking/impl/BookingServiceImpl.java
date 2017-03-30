@@ -17,7 +17,18 @@ public class BookingServiceImpl implements BookingService {
 	@Autowired
 	private BookingRepository bookingRepository;
 
+	@Override
 	public List<Booking> getBookingsForRoom(long roomId) {
-        return bookingRepository.findByRoomId(roomId);
+        return bookingRepository.findByRoom_RoomId(roomId);
     }
+
+	@Override
+	public List<Booking> getBookingsForCustomer(long customerId) {
+        return bookingRepository.findByCustomer_CustomerId(customerId);
+    }
+	
+	@Override
+	public Booking addBooking(Booking booking) {
+		return bookingRepository.save(booking);
+	}
 }

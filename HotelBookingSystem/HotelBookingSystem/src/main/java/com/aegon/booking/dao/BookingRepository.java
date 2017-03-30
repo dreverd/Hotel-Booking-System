@@ -7,5 +7,9 @@ import org.springframework.data.repository.Repository;
 import com.aegon.booking.model.Booking;
 
 public interface BookingRepository extends Repository<Booking, Long>{
-   List<Booking> findByRoomId( long roomId );
+	   List<Booking> findByRoom_RoomId( long roomId );
+	   
+	   List<Booking> findByCustomer_CustomerId( long roomId );
+	   
+	   Booking save(Booking booking);
 }
