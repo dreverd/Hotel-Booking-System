@@ -1,47 +1,110 @@
 package com.aegon.booking.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
-@Entity
+@Entity(name="room")
 public class Room {
 
     @Id @GeneratedValue
     private long roomId;
 
-    @Column(nullable = false)
     private String name;
     
-    @Column(nullable = false)
     private String description;
 
-    public long getRoomId() {
-        return roomId;
-    }
+    @ManyToOne
+    @JoinColumn(name="establishmentId")
+    private Establishment establishment;
 
-    void setRoomId(long roomId) {
-        this.roomId = roomId;
-    }
+    @ManyToOne
+    @JoinColumn(name="roomCategoryId")
+    private RoomCategory roomCategory;
+    
+    /**
+	 * @return the roomId
+	 */
+	public long getRoomId() {
+		return roomId;
+	}
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	/**
+	 * @param roomId the roomId to set
+	 */
+	public void setRoomId(long roomId) {
+		this.roomId = roomId;
+	}
 
-    public String getDescription() {
-        return description;
-    }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
 
-    @Override
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	/**
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+
+	/**
+	 * @param description the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+
+	/**
+	 * @return the establishment
+	 */
+	public Establishment getEstablishment() {
+		return establishment;
+	}
+
+
+	/**
+	 * @param establishment the establishment to set
+	 */
+	public void setEstablishment(Establishment establishment) {
+		this.establishment = establishment;
+	}
+
+
+	/**
+	 * @return the roomCategory
+	 */
+	public RoomCategory getRoomCategory() {
+		return roomCategory;
+	}
+
+
+	/**
+	 * @param roomCategory the roomCategory to set
+	 */
+	public void setRoomCategory(RoomCategory roomCategory) {
+		this.roomCategory = roomCategory;
+	}
+
+
+	@Override
     public String toString() {
     	return getRoomId() + "," + getName() + "," + getDescription();
     }

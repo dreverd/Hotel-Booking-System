@@ -17,31 +17,55 @@ public class Customer {
     @Column(nullable = false)
     private String lastName;
 
-    public long getCustomerId() {
-        return customerId;
-    }
+    /**
+	 * @return the customerId
+	 */
+	public long getCustomerId() {
+		return customerId;
+	}
 
-    void setCustomerId(long id) {
-        this.customerId = id;
-    }
 
-    public String getFirstName() {
-        return firstName;
-    }
+	/**
+	 * @param customerId the customerId to set
+	 */
+	public void setCustomerId(long customerId) {
+		this.customerId = customerId;
+	}
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
 
-    public String getLastName() {
-        return lastName;
-    }
+	/**
+	 * @return the firstName
+	 */
+	public String getFirstName() {
+		return firstName;
+	}
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 
-    @Override
+	/**
+	 * @param firstName the firstName to set
+	 */
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+
+	/**
+	 * @return the lastName
+	 */
+	public String getLastName() {
+		return lastName;
+	}
+
+
+	/**
+	 * @param lastName the lastName to set
+	 */
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+
+	@Override
     public String toString() {
     	return getCustomerId() + "," + getFirstName() + "," + getLastName();
     }
