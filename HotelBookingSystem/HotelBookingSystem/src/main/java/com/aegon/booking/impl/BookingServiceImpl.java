@@ -24,7 +24,8 @@ public class BookingServiceImpl implements BookingService {
 
 	@Override
 	public List<Booking> getBookingsForCustomer(long customerId) {
-        return bookingRepository.findByCustomer_CustomerId(customerId);
+		List<Booking> bookings = bookingRepository.findByCustomer_CustomerId(customerId);
+        return bookings;
     }
 	
 	@Override

@@ -11,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity(name="room_category")
 public class RoomCategory {
 
@@ -23,6 +25,7 @@ public class RoomCategory {
 	private int price;
 
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="roomCategory")
+    @JsonIgnore
 	private List<Room> rooms;
 
 	/**

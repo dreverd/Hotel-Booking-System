@@ -17,11 +17,11 @@ public class Booking {
 	@Id @GeneratedValue
 	private long bookingId;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
     @JoinColumn(name = "roomId")
 	private Room room;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "customerId")
     private Customer customer;
 		

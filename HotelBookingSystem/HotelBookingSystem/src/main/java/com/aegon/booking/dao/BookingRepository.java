@@ -9,7 +9,7 @@ import com.aegon.booking.model.Booking;
 public interface BookingRepository extends Repository<Booking, Long>{
 	   List<Booking> findByRoom_RoomId( long roomId );
 	   
-	   List<Booking> findByCustomer_CustomerId( long roomId );
+	   List<Booking> findByCustomer_CustomerId( long customerId );
 	   
 	   Booking save(Booking booking);
 }

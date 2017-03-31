@@ -2,12 +2,13 @@ package com.aegon.booking.model;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity(name="establishment")
 public class Establishment {
@@ -18,10 +19,12 @@ public class Establishment {
 
 	private String description;
 
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="establishment")
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="establishment")
+	@JsonIgnore
 	private List<Booking> bookings;
 
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="establishment")
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="establishment")
+	@JsonIgnore
 	private List<Room> rooms;
 
 	/**
