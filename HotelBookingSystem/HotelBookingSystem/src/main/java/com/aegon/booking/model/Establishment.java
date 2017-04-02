@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.aegon.room.model.Room;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity(name="establishment")

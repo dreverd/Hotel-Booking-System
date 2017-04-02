@@ -1,4 +1,4 @@
-package com.aegon.booking.model;
+package com.aegon.room.model;
 
 import java.util.List;
 

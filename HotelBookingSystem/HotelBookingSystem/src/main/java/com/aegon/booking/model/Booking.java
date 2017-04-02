@@ -1,16 +1,16 @@
 package com.aegon.booking.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
+import com.aegon.customer.model.Customer;
+import com.aegon.room.model.Room;
 
 @Entity(name="booking")
 public class Booking {
@@ -29,11 +29,9 @@ public class Booking {
     @JoinColumn(name="establishmentId")
     private Establishment establishment;
     
-    @Temporal(TemporalType.DATE)
-    private Date checkIn;
+    private LocalDate checkIn;
 
-    @Temporal(TemporalType.DATE)
-    private Date checkOut;
+    private LocalDate checkOut;
     
     /**
 	 * @return the bookingId
@@ -102,7 +100,7 @@ public class Booking {
 	/**
 	 * @return the checkIn
 	 */
-	public Date getCheckIn() {
+	public LocalDate getCheckIn() {
 		return checkIn;
 	}
 
@@ -110,7 +108,7 @@ public class Booking {
 	/**
 	 * @param checkIn the checkIn to set
 	 */
-	public void setCheckIn(Date checkIn) {
+	public void setCheckIn(LocalDate checkIn) {
 		this.checkIn = checkIn;
 	}
 
@@ -118,7 +116,7 @@ public class Booking {
 	/**
 	 * @return the checkOut
 	 */
-	public Date getCheckOut() {
+	public LocalDate getCheckOut() {
 		return checkOut;
 	}
 
@@ -126,7 +124,7 @@ public class Booking {
 	/**
 	 * @param checkOut the checkOut to set
 	 */
-	public void setCheckOut(Date checkOut) {
+	public void setCheckOut(LocalDate checkOut) {
 		this.checkOut = checkOut;
 	}
 

@@ -1,5 +1,6 @@
 package com.aegon.booking.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,14 @@ public class BookingServiceImpl implements BookingService {
 		List<Booking> bookings = bookingRepository.findByCustomer_CustomerId(customerId);
         return bookings;
     }
+	
+	@Override
+	public List<Booking> getAvailabilityForRoom(long roomId, Date from, Date to) {
+		List<Booking> bookings = bookingRepository.findByAvailabilityByRoom(roomId, from, to);
+		
+		
+        return bookings;		
+	}
 	
 	@Override
 	public Booking addBooking(Booking booking) {
