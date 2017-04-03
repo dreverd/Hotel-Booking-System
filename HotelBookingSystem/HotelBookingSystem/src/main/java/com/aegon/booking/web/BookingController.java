@@ -1,6 +1,6 @@
 package com.aegon.booking.web;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,9 +45,9 @@ public class BookingController {
     }	
 	
 	@RequestMapping(value = "/room/{roomId}/availability/from/{from}/to/{to}", method = RequestMethod.GET)
-    public List<Date> getAvailabilityForRoom(@PathVariable long roomId, 
-    										 @PathVariable @DateTimeFormat(pattern="yyyy-MM-dd") Date from,
-		 									 @PathVariable @DateTimeFormat(pattern="yyyy-MM-dd") Date to ) {
+    public List<LocalDate> getAvailabilityForRoom(@PathVariable long roomId, 
+    										 @PathVariable @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate from,
+		 									 @PathVariable @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate to ) {
 		return bookingService.getAvailabilityForRoom(roomId, from, to);
     }	
 	

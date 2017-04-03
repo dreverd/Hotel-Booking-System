@@ -1,7 +1,11 @@
 package com.aegon.booking.impl;
 
-import java.util.Date;
+import static java.time.temporal.ChronoUnit.DAYS;
+
+import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -30,15 +34,30 @@ public class BookingServiceImpl implements BookingService {
     }
 	
 	@Override
-	public List<Booking> getAvailabilityForRoom(long roomId, Date from, Date to) {
+	public List<LocalDate> getAvailabilityForRoom(long roomId, LocalDate from, LocalDate to) {
+		List<LocalDate> days = null;
 		List<Booking> bookings = bookingRepository.findByAvailabilityByRoom(roomId, from, to);
+
+		if (bookings != null) {
+			days = Stream.iterate(from, date -> date.plusDays(1)).limit(DAYS.between(from, to)).collect(Collectors.toList());		
+			days.stream().filter(day -> inBookingPeriod(day, bookings)).collect(Collectors.toList());
+		}
 		
-		
-        return bookings;		
+        return days;		
 	}
 	
 	@Override
 	public Booking addBooking(Booking booking) {
 		return bookingRepository.save(booking);
+	}
+	
+	private static boolean inBookingPeriod(LocalDate day, List<Booking> bookings) {
+		for(Booking booking: bookings) {
+			if (day.isBefore(booking.getCheckIn()) && day.isAfter(booking.getCheckOut())) {
+				return false;
+			}
+		}
+		
+		return true;
 	}
 }

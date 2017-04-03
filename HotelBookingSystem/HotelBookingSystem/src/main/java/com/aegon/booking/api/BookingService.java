@@ -1,6 +1,6 @@
 package com.aegon.booking.api;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import com.aegon.booking.model.Booking;
@@ -28,7 +28,7 @@ public interface BookingService {
 	 * @param to
 	 * @return available dates
 	 */
-	public List<Date> getAvailabilityForRoom(long roomId, Date from, Date to);
+	public List<LocalDate> getAvailabilityForRoom(long roomId, LocalDate from, LocalDate to);
 	
 	/**
 	 * Retrieve availability for a room over a given period
