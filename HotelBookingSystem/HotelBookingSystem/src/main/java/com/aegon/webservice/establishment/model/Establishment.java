@@ -1,4 +1,4 @@
-package com.aegon.webservice.booking.model;
+package com.aegon.webservice.establishment.model;
 
 import java.util.List;
 
@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.aegon.webservice.booking.model.Booking;
 import com.aegon.webservice.room.model.Room;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

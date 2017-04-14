@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.aegon.webservice.booking.model.Establishment;
+import com.aegon.webservice.establishment.model.Establishment;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity(name="room")

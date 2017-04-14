@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import com.aegon.webservice.customer.model.Customer;
+import com.aegon.webservice.establishment.model.Establishment;
 import com.aegon.webservice.room.model.Room;
 
 

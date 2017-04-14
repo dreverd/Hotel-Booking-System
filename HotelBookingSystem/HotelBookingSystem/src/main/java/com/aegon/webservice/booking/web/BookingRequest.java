@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class BookingRequest {
 	private long roomId;
 	private long customerId;
-	private long establishmenId;
+	private long establishmentId;
 	private LocalDate checkIn;
 	private LocalDate checkOut;
 
@@ -42,16 +42,16 @@ public class BookingRequest {
 	/**
 	 * @return the establishmenId
 	 */
-	public long getEstablishmenId() {
-		return establishmenId;
+	public long getEstablishmentId() {
+		return establishmentId;
 	}
 
 	/**
 	 * @param establishmenId
 	 *            the establishmenId to set
 	 */
-	public void setEstablishmenId(long establishmenId) {
-		this.establishmenId = establishmenId;
+	public void setEstablishmentId(long establishmentId) {
+		this.establishmentId = establishmentId;
 	}
 
 	/**

@@ -5,6 +5,16 @@ public class ResponseWrapper<T> {
 	private T data;
 	private String message;
 
+	public ResponseWrapper(T data, ResponseStatusType status) {
+		this(data, status, null);
+	}
+	
+	public ResponseWrapper(T data, ResponseStatusType status, String message) {
+		this.data = data;
+		this.status = status;
+		this.message = message;
+	}
+	
 	/**
 	 * @return the status
 	 */
