@@ -29,6 +29,14 @@ public class Establishment {
 	@JsonIgnore
 	private List<Room> rooms;
 
+	public Establishment() {}
+
+	public Establishment(long establishmentId, String name, String description) {
+		this.establishmentId = establishmentId;
+		this.name = name;
+		this.description = description;
+	}
+
 	/**
 	 * @return the establishmentId
 	 */

@@ -28,7 +28,22 @@ public class Room {
     @JoinColumn(name="roomCategoryId")
     private RoomCategory roomCategory;
     
-    /**
+    public Room() {}
+
+    public Room(long roomId,
+    			String name,
+    			String description,
+    			Establishment establishment, 
+    			RoomCategory roomCategory) {
+    	this.roomId = roomId;
+    	this.name = name;
+    	this.description = description;
+    	this.establishment = establishment;
+    	this.roomCategory = roomCategory;
+	}
+
+
+	/**
 	 * @return the roomId
 	 */
 	public long getRoomId() {

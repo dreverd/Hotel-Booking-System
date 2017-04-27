@@ -5,10 +5,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.aegon.webservice.booking.api.BookingService;
 import com.aegon.webservice.booking.model.Booking;
@@ -23,7 +26,7 @@ import com.aegon.webservice.response.ResponseWrapper;
 import com.aegon.webservice.room.api.RoomService;
 import com.aegon.webservice.room.model.Room;
 
-
+@RestController
 @RequestMapping("/bookings")
 public class BookingRestController extends BaseRestController {
 
@@ -42,13 +45,13 @@ public class BookingRestController extends BaseRestController {
 	@RequestMapping(value = "/room/{roomId}", method = RequestMethod.GET)
     public ResponseWrapper<List<BookingResponse>> getBookingsByRoom(@PathVariable long roomId) throws ResourceNotFoundException {
 		List<Booking> bookings = bookingService.getBookingsForRoom(roomId);
-		return generateResponse(bookings, booking -> new BookingResponse(booking));
+		return generateGetResponse(bookings, booking -> new BookingResponse(booking));
     }	
 
 	@RequestMapping(value = "/customer/{customerId}", method = RequestMethod.GET)
     public ResponseWrapper<List<BookingResponse>> getBookingsByCustomer(@PathVariable long customerId) throws ResourceNotFoundException {
 		List<Booking> bookings = bookingService.getBookingsForCustomer(customerId);
-		return generateResponse(bookings, booking -> new BookingResponse(booking));
+		return generateGetResponse(bookings, booking -> new BookingResponse(booking));
     }	
 	
 	@RequestMapping(value = "/room/{roomId}/availability/from/{from}/to/{to}", method = RequestMethod.GET)
@@ -56,12 +59,15 @@ public class BookingRestController extends BaseRestController {
     										 @PathVariable @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate from,
 		 									 @PathVariable @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate to ) throws ResourceNotFoundException {
 		List<LocalDate> dates = bookingService.getAvailabilityForRoom(roomId, from, to);
-		return generateResponse(dates);
+		return generateGetResponse(dates);
     }	
 	
+	// TODO - sort out return
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseWrapper<Booking> addBooking(@RequestBody BookingRequest request) throws InvalidDataException {
-		return new ResponseWrapper<Booking>(bookingService.addBooking(convertToEntity(request)), ResponseStatusType.SUCCESS);
+	public ResponseEntity<ResponseWrapper<Booking>> addBooking(@RequestBody BookingRequest request)
+			throws InvalidDataException {
+		return new ResponseEntity<ResponseWrapper<Booking>>(new ResponseWrapper<Booking>(
+				bookingService.addBooking(convertToEntity(request)), ResponseStatusType.SUCCESS), HttpStatus.CREATED);
 	}
 	
 	protected Booking convertToEntity(BookingRequest request) throws InvalidDataException {

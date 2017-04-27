@@ -9,6 +9,20 @@ public class BookingRequest {
 	private LocalDate checkIn;
 	private LocalDate checkOut;
 
+	public BookingRequest() {}
+	
+	public BookingRequest(long roomId, 
+						  long customerId, 
+						  long establishmentId, 
+						  LocalDate checkIn, 
+						  LocalDate checkOut) {
+		this.roomId = roomId;
+		this.customerId = customerId;
+		this.establishmentId = establishmentId;
+		this.checkIn = checkIn;
+		this.checkOut = checkOut;
+	}
+	
 	/**
 	 * @return the roomId
 	 */

@@ -28,6 +28,14 @@ public class RoomCategory {
     @JsonIgnore
 	private List<Room> rooms;
 
+	public RoomCategory() {}
+
+	public RoomCategory(long roomCategoryId, RoomCategoryType roomCategory, int price) {
+			this.roomCategoryId = roomCategoryId;
+			this.roomCategory = roomCategory;
+			this.price = price;
+	}
+
 	/**
 	 * @return the roomCategoryId
 	 */

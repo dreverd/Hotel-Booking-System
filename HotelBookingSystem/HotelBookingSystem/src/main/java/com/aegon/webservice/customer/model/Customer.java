@@ -17,7 +17,15 @@ public class Customer {
     @Column(nullable = false)
     private String lastName;
 
-    /**
+    public Customer() {}
+
+    public Customer(long customerId, String firstName, String lastName) {
+    	this.customerId = customerId;
+    	this.firstName = firstName;
+    	this.lastName = lastName;
+	}
+
+	/**
 	 * @return the customerId
 	 */
 	public long getCustomerId() {

@@ -34,8 +34,23 @@ public class Booking {
     private LocalDate checkIn;
 
     private LocalDate checkOut;
-    
-    /**
+
+	public Booking() {}
+
+    public Booking( long bookingId, 
+    				Customer customer, 
+    				Room room, 
+    				LocalDate checkIn, 
+    				LocalDate checkOut) {
+    	this.bookingId = bookingId;
+    	this.customer = customer;
+    	this.room = room;
+    	this.checkIn = checkIn;
+    	this.checkOut = checkOut;
+	}
+
+
+	/**
 	 * @return the bookingId
 	 */
 	public long getBookingId() {
