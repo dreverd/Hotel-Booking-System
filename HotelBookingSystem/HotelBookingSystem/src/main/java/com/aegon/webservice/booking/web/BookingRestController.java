@@ -64,9 +64,9 @@ public class BookingRestController extends BaseRestController {
 	
 	// TODO - sort out return
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<ResponseWrapper<Booking>> addBooking(@RequestBody BookingRequest request)
+	public ResponseEntity<ResponseWrapper<Long>> addBooking(@RequestBody BookingRequest request)
 			throws InvalidDataException {
-		return new ResponseEntity<ResponseWrapper<Booking>>(new ResponseWrapper<Booking>(
+		return new ResponseEntity<ResponseWrapper<Long>>(new ResponseWrapper<Long>(
 				bookingService.addBooking(convertToEntity(request)), ResponseStatusType.SUCCESS), HttpStatus.CREATED);
 	}
 	

@@ -46,8 +46,8 @@ public class BookingServiceImpl implements BookingService {
 	}
 	
 	@Override
-	public Booking addBooking(Booking booking) {
-		return bookingRepository.save(booking);
+	public long addBooking(Booking booking) {
+		return bookingRepository.save(booking).getBookingId();
 	}
 	
 	private static boolean inBookingPeriod(LocalDate day, List<Booking> bookings) {

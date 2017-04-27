@@ -9,6 +9,6 @@ insert into room (room_id, name, description, establishment_id, room_category_id
 insert into room (room_id, name, description, establishment_id, room_category_id) values (4, 'Double Room 2', 'This is double room 2', 1, 2)
 insert into room (room_id, name, description, establishment_id, room_category_id) values (5, 'Double Room 3', 'This is double room 3', 1, 2)
 
-insert into customer (customer_id, first_name, last_name) values (1, 'John', 'Smith')
-
-insert into booking (booking_id, room_id, customer_id, establishment_id, check_in, check_out) values (1, 1, 1, 1, '2017-04-01', '2017-04-08')
+insert into customer (customer_id, first_name, last_name) values (1, 'firstname1', 'surname1')
+insert into customer (customer_id, first_name, last_name) values (2, 'firstname2', 'surname2')
+insert into customer (customer_id, first_name, last_name) values (3, 'firstname3', 'surname3')

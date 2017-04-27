@@ -44,5 +44,5 @@ public interface BookingService {
 	 * @param booking to add
 	 * @return the newly added booking
 	 */
-	public Booking addBooking(Booking booking);
+	public long addBooking(Booking booking);
 }

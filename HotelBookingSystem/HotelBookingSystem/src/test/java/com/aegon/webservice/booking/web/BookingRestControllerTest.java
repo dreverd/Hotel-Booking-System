@@ -10,7 +10,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 import org.assertj.core.util.Lists;
 import org.hamcrest.core.IsNull;
@@ -23,20 +22,12 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.aegon.webservice.booking.BookingTestDataFactory;
 import com.aegon.webservice.booking.api.BookingService;
 import com.aegon.webservice.booking.model.Booking;
 import com.aegon.webservice.customer.api.CustomerService;
-import com.aegon.webservice.customer.model.Customer;
 import com.aegon.webservice.establishment.api.EstablishmentService;
-import com.aegon.webservice.establishment.model.Establishment;
 import com.aegon.webservice.room.api.RoomService;
-import com.aegon.webservice.room.model.Room;
-import com.aegon.webservice.room.model.RoomCategory;
-import com.aegon.webservice.room.model.RoomCategoryType;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(BookingRestController.class)
@@ -105,7 +96,7 @@ public class BookingRestControllerTest {
     public void shouldAddBooking() throws Exception {
     	Booking booking = factory.getBooking();
     	
-        given(bookingService.addBooking(booking)).willReturn(booking);
+        given(bookingService.addBooking(booking)).willReturn(BOOKING_ID);
         given(roomService.getRoom(ROOM_ID)).willReturn(factory.getRoom(ROOM_ID));
         given(customerService.getCustomer(CUSTOMER_ID)).willReturn(factory.getCustomer(CUSTOMER_ID));
         given(establishmentService.getEstablishment(ESTABLISHMENT_ID)).willReturn(factory.getEstablishment());
@@ -139,63 +130,5 @@ public class BookingRestControllerTest {
             .andExpect(jsonPath("$.data", IsNull.nullValue()))
 	    	.andExpect(jsonPath("$.status").value("FAIL"))	
 	    	.andExpect(jsonPath("$.message").value("No resource found"));	
-	}
-
-
-	private class BookingTestDataFactory {
-		private static final long DEFAULT_ID = 1L;
-		
-		public String getBookingRequest() throws JsonProcessingException {
-	    	BookingRequest request = new BookingRequest(DEFAULT_ID, DEFAULT_ID, DEFAULT_ID,  LocalDate.now(), LocalDate.now().plusDays(3));
-	        ObjectMapper mapper = new ObjectMapper();
-	        mapper.registerModule(new JavaTimeModule());
-	        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-	        return mapper.writeValueAsString(request);
-	    }
-	
-	    public Booking getBooking() {
-			return new Booking(DEFAULT_ID, getCustomer(DEFAULT_ID), getRoom(DEFAULT_ID), LocalDate.now(), LocalDate.now().plusDays(3));
-		}
-		
-		public List<Booking> getRoomBookings(int numBookings, long roomId) {
-			List<Booking> bookings = new ArrayList<>();
-			for (int i = 1; i <= numBookings; ++i) {
-				bookings.add(new Booking(i, getCustomer(i), getRoom(roomId), LocalDate.now(), LocalDate.now().plusDays(3)));
-			}
-			return bookings;
-		}
-		
-		public List<Booking> getCustomerBookings(int numBookings, long customerId) {
-			List<Booking> bookings = new ArrayList<>();
-			for (int i = 1; i <= numBookings; ++i) {
-				bookings.add(new Booking(i, getCustomer(customerId), getRoom(i), LocalDate.now(), LocalDate.now().plusDays(3)));
-			}
-			return bookings;
-		}
-		
-		public List<LocalDate> getAvailability(int numDays) {
-			List<LocalDate> availability = new ArrayList<>();
-			for (int i = 0; i < numDays; ++i) {
-				availability.add(LocalDate.now().plusDays(i));
-			}
-			
-			return availability;
-		}
-		
-		public Establishment getEstablishment() {
-			return new Establishment(DEFAULT_ID, "Lochside House", "Lochside House Hotel description");
-		}
-		
-		public Customer getCustomer(long customerId) {
-			return new Customer(customerId, "firstname" + customerId, "surname" + customerId);
-		}
-	
-		public RoomCategory getRoomCategory() {
-			return new RoomCategory(DEFAULT_ID, RoomCategoryType.SINGLE, 100);
-		}
-	
-		public Room getRoom(long roomId) {
-			return new Room(roomId, "Single Room " +  roomId, "This is single room " + roomId, getEstablishment(), getRoomCategory());
-		}
 	}
 }
