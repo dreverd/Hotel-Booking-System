@@ -18,6 +18,7 @@ import com.aegon.webservice.booking.model.Booking;
 import com.aegon.webservice.customer.api.CustomerService;
 import com.aegon.webservice.customer.model.Customer;
 import com.aegon.webservice.errors.InvalidDataException;
+import com.aegon.webservice.errors.NoAvailabilityException;
 import com.aegon.webservice.errors.ResourceNotFoundException;
 import com.aegon.webservice.establishment.api.EstablishmentService;
 import com.aegon.webservice.establishment.model.Establishment;
@@ -65,7 +66,7 @@ public class BookingRestController extends BaseRestController {
 	// TODO - sort out return
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<ResponseWrapper<Long>> addBooking(@RequestBody BookingRequest request)
-			throws InvalidDataException {
+			throws InvalidDataException, NoAvailabilityException {
 		return new ResponseEntity<ResponseWrapper<Long>>(new ResponseWrapper<Long>(
 				bookingService.addBooking(convertToEntity(request)), ResponseStatusType.SUCCESS), HttpStatus.CREATED);
 	}

@@ -1,4 +1,5 @@
 C:\Users\dwd\git\Hotel-Booking-System\HotelBookingSystem\HotelBookingSystem\src\main\java\com\aegon\webservice\HotelBookingSystemApplication.java
+C:\Users\dwd\git\Hotel-Booking-System\HotelBookingSystem\HotelBookingSystem\src\main\java\com\aegon\webservice\errors\NoAvailabilityException.java
 C:\Users\dwd\git\Hotel-Booking-System\HotelBookingSystem\HotelBookingSystem\src\main\java\com\aegon\webservice\booking\api\BookingService.java
 C:\Users\dwd\git\Hotel-Booking-System\HotelBookingSystem\HotelBookingSystem\src\main\java\com\aegon\webservice\room\dao\RoomRepository.java
 C:\Users\dwd\git\Hotel-Booking-System\HotelBookingSystem\HotelBookingSystem\src\main\java\com\aegon\webservice\establishment\model\Establishment.java

@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.aegon.webservice.booking.api.BookingService;
 import com.aegon.webservice.booking.dao.BookingRepository;
 import com.aegon.webservice.booking.model.Booking;
+import com.aegon.webservice.errors.NoAvailabilityException;
 
 @Component("bookingService")
 @Transactional
@@ -22,6 +23,20 @@ public class BookingServiceImpl implements BookingService {
 	@Autowired
 	private BookingRepository bookingRepository;
 
+	@Override
+	public long addBooking(Booking booking) throws NoAvailabilityException {
+		List<LocalDate> unavailabledays = getDaysInPeriod(booking.getCheckIn(), booking.getCheckOut()).stream()
+				.filter(day -> inBookingPeriod(day, getBookingsForRoom(booking.getRoom().getRoomId())))
+				.collect(Collectors.toList());
+
+		if (unavailabledays != null && unavailabledays.size() > 0) {
+			throw new NoAvailabilityException("No availabilty on: "
+					+ unavailabledays.stream().map(day -> day.toString()).collect(Collectors.joining(",")));
+		}
+
+		return bookingRepository.save(booking).getBookingId();
+	}
+	
 	@Override
 	public List<Booking> getBookingsForRoom(long roomId) {
         return bookingRepository.findByRoom_RoomId(roomId);
@@ -34,29 +49,23 @@ public class BookingServiceImpl implements BookingService {
 	
 	@Override
 	public List<LocalDate> getAvailabilityForRoom(long roomId, LocalDate from, LocalDate to) {
-		List<LocalDate> days = null;
-		List<Booking> bookings = bookingRepository.findByRoom_RoomId(roomId);
-
-		if (bookings != null) {
-			days = Stream.iterate(from, date -> date.plusDays(1)).limit(DAYS.between(from, to)).collect(Collectors.toList());		
-			days.stream().filter(day -> inBookingPeriod(day, bookings)).collect(Collectors.toList());
-		}
-		
-        return days;		
+		return getDaysInPeriod(from, to).stream().filter(day -> !inBookingPeriod(day, getBookingsForRoom(roomId)))
+				.collect(Collectors.toList());
 	}
-	
-	@Override
-	public long addBooking(Booking booking) {
-		return bookingRepository.save(booking).getBookingId();
+
+	private List<LocalDate> getDaysInPeriod(LocalDate from, LocalDate to) {
+		return Stream.iterate(from, date -> date.plusDays(1)).limit(DAYS.between(from, to)).collect(Collectors.toList());		 
 	}
 	
 	private static boolean inBookingPeriod(LocalDate day, List<Booking> bookings) {
-		for(Booking booking: bookings) {
-			if (day.isBefore(booking.getCheckIn()) && day.isAfter(booking.getCheckOut())) {
-				return false;
+		if (bookings != null) {
+			for(Booking booking: bookings) {
+				if (day.isAfter(booking.getCheckIn().minusDays(1)) && day.isBefore(booking.getCheckOut())) {
+					return true;
+				}
 			}
 		}
 		
-		return true;
+		return false;
 	}
 }

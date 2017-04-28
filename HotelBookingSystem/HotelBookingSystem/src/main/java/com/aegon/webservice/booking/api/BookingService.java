@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.aegon.webservice.booking.model.Booking;
+import com.aegon.webservice.errors.NoAvailabilityException;
 
 public interface BookingService {
 
@@ -43,6 +44,7 @@ public interface BookingService {
 	 * Add a new booking
 	 * @param booking to add
 	 * @return the newly added booking
+	 * @throws NoAvailabilityException 
 	 */
-	public long addBooking(Booking booking);
+	public long addBooking(Booking booking) throws NoAvailabilityException;
 }

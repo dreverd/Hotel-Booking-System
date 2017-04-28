@@ -18,6 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.aegon.webservice.booking.BookingTestDataFactory;
 import com.aegon.webservice.booking.api.BookingService;
 import com.aegon.webservice.booking.model.Booking;
+import com.aegon.webservice.errors.NoAvailabilityException;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -42,7 +43,7 @@ public class BookingServiceImplTest {
 	}
 
 	@Test
-    public void shouldStoreBooking() {
+    public void shouldStoreBooking() throws NoAvailabilityException {
         long bookingId = bookingService.addBooking(factory.getBooking(0));
 
         List<Booking> foundBooking = bookingService.getBookingsForRoom(ROOM_ID);
