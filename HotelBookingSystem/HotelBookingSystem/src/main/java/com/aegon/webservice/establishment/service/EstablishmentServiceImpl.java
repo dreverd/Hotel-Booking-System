@@ -5,8 +5,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.aegon.webservice.establishment.api.EstablishmentService;
-import com.aegon.webservice.establishment.dao.EstablishmentRepository;
 import com.aegon.webservice.establishment.model.Establishment;
+import com.aegon.webservice.establishment.repository.EstablishmentRepository;
 
 @Component("establishmentService")
 @Transactional

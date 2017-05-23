@@ -1,4 +1,4 @@
-package com.aegon.webservice.booking.dao;
+package com.aegon.webservice.booking.repository;
 
 import java.util.List;
 

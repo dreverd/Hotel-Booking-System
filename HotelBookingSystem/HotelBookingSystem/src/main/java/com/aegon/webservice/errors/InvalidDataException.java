@@ -1,6 +1,8 @@
 package com.aegon.webservice.errors;
 
-public class InvalidDataException extends Exception {
+import org.springframework.http.HttpStatus;
+
+public class InvalidDataException extends Exception implements ExceptionHttpStatus {
 	private static final long serialVersionUID = 2L;
 	private String errorMessage;
 
@@ -16,4 +18,8 @@ public class InvalidDataException extends Exception {
 	public InvalidDataException() {
         super();
     }
+
+	public HttpStatus getHttpStatus() {
+		return HttpStatus.BAD_REQUEST;
+	}
 }

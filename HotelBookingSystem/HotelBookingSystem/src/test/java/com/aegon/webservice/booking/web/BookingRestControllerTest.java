@@ -2,6 +2,7 @@ package com.aegon.webservice.booking.web;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Matchers.any;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -68,7 +69,8 @@ public class BookingRestControllerTest {
 	    mvc.perform(get("/bookings/room/" + ROOM_ID).accept(APPLICATION_JSON))
 	            .andExpect(status().isOk())
 	            .andExpect(jsonPath("$.data", hasSize(2)))
-	            .andExpect(jsonPath("$.data[0].bookingId").value(BOOKING_ID));	
+	            .andExpect(jsonPath("$.data[0].bookingId").value(BOOKING_ID))
+	    		.andExpect(jsonPath("$.data[1].bookingId").value(BOOKING_ID + 1));
 	}
 
 	@Test
@@ -79,7 +81,7 @@ public class BookingRestControllerTest {
 	    mvc.perform(get("/bookings/customer/" + CUSTOMER_ID).accept(APPLICATION_JSON))
 	            .andExpect(status().isOk())
 	            .andExpect(jsonPath("$.data", hasSize(1)))
-	            .andExpect(jsonPath("$.data[0].bookingId").value(BOOKING_ID));	
+	            .andExpect(jsonPath("$.data[0].bookingId").value(BOOKING_ID));
 	}
 
 	@Test
@@ -89,14 +91,15 @@ public class BookingRestControllerTest {
 
 		mvc.perform(get("/bookings/room/" + ROOM_ID + "/availability/from/" + LocalDate.now() + "/to/"
 				+ LocalDate.now().plusDays(2)).accept(APPLICATION_JSON)).andExpect(status().isOk())
-				.andExpect(jsonPath("$.data", hasSize(3)));
+				.andExpect(jsonPath("$.data", hasSize(3)))
+				.andExpect(jsonPath("$.data[0]").value(LocalDate.now().toString()))
+				.andExpect(jsonPath("$.data[1]").value(LocalDate.now().plusDays(1).toString()))
+				.andExpect(jsonPath("$.data[2]").value(LocalDate.now().plusDays(2).toString()));
 	}
 
     @Test
     public void shouldAddBooking() throws Exception {
-    	Booking booking = factory.getBooking();
-    	
-        given(bookingService.addBooking(booking)).willReturn(BOOKING_ID);
+        given(bookingService.addBooking(any())).willReturn(BOOKING_ID);
         given(roomService.getRoom(ROOM_ID)).willReturn(factory.getRoom(ROOM_ID));
         given(customerService.getCustomer(CUSTOMER_ID)).willReturn(factory.getCustomer(CUSTOMER_ID));
         given(establishmentService.getEstablishment(ESTABLISHMENT_ID)).willReturn(factory.getEstablishment());
@@ -106,7 +109,10 @@ public class BookingRestControllerTest {
             .contentType(APPLICATION_JSON)
             .accept(APPLICATION_JSON)
         )
-            .andExpect(status().isCreated());
+            .andExpect(status().isCreated())
+            .andExpect(jsonPath("$.data").value(BOOKING_ID))
+	    	.andExpect(jsonPath("$.status").value("SUCCESS"))	
+	    	.andExpect(jsonPath("$.message", IsNull.nullValue()));
     }	
 	
     @Test
@@ -117,7 +123,7 @@ public class BookingRestControllerTest {
             .andExpect(status().isNotFound())
             .andExpect(jsonPath("$.data", IsNull.nullValue()))
 	    	.andExpect(jsonPath("$.status").value("FAIL"))	
-	    	.andExpect(jsonPath("$.message").value("No resource found"));	
+	    	.andExpect(jsonPath("$.message").value("No resource found"));
 	}
 
 
@@ -129,6 +135,6 @@ public class BookingRestControllerTest {
             .andExpect(status().isNotFound())
             .andExpect(jsonPath("$.data", IsNull.nullValue()))
 	    	.andExpect(jsonPath("$.status").value("FAIL"))	
-	    	.andExpect(jsonPath("$.message").value("No resource found"));	
+	    	.andExpect(jsonPath("$.message").value("No resource found"));
 	}
 }

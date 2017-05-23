@@ -1,6 +1,8 @@
 package com.aegon.webservice.errors;
 
-public class NoAvailabilityException extends Exception {
+import org.springframework.http.HttpStatus;
+
+public class NoAvailabilityException extends Exception implements ExceptionHttpStatus {
 	private static final long serialVersionUID = 1L;
     private String errorMessage;
 
@@ -16,4 +18,8 @@ public class NoAvailabilityException extends Exception {
 	public NoAvailabilityException() {
         super();
     }
+	
+	public HttpStatus getHttpStatus() {
+		return HttpStatus.OK;
+	}
 }

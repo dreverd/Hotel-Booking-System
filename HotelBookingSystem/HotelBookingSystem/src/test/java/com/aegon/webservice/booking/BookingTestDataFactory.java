@@ -3,6 +3,8 @@ package com.aegon.webservice.booking;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import com.aegon.webservice.booking.model.Booking;
 import com.aegon.webservice.booking.web.BookingRequest;
@@ -28,7 +30,7 @@ public class BookingTestDataFactory {
     }
 
     public Booking getBooking(long bookingId) {
-		return new Booking(bookingId, getCustomer(DEFAULT_ID), getRoom(DEFAULT_ID), LocalDate.now(), LocalDate.now().plusDays(3));
+		return new Booking(bookingId, getCustomer(DEFAULT_ID), getRoom(DEFAULT_ID), getEstablishment(), LocalDate.now(), LocalDate.now().plusDays(3));
 	}
 	
     public Booking getBooking() {
@@ -38,7 +40,7 @@ public class BookingTestDataFactory {
 	public List<Booking> getRoomBookings(int numBookings, long roomId) {
 		List<Booking> bookings = new ArrayList<>();
 		for (int i = 1; i <= numBookings; ++i) {
-			bookings.add(new Booking(i, getCustomer(i), getRoom(roomId), LocalDate.now(), LocalDate.now().plusDays(3)));
+			bookings.add(new Booking(i, getCustomer(i), getRoom(roomId), getEstablishment(), LocalDate.now(), LocalDate.now().plusDays(3)));
 		}
 		return bookings;
 	}
@@ -46,18 +48,17 @@ public class BookingTestDataFactory {
 	public List<Booking> getCustomerBookings(int numBookings, long customerId) {
 		List<Booking> bookings = new ArrayList<>();
 		for (int i = 1; i <= numBookings; ++i) {
-			bookings.add(new Booking(i, getCustomer(customerId), getRoom(i), LocalDate.now(), LocalDate.now().plusDays(3)));
+			bookings.add(new Booking(i, getCustomer(customerId), getRoom(i), getEstablishment(), LocalDate.now(), LocalDate.now().plusDays(3)));
 		}
 		return bookings;
 	}
 	
 	public List<LocalDate> getAvailability(int numDays) {
-		List<LocalDate> availability = new ArrayList<>();
-		for (int i = 0; i < numDays; ++i) {
-			availability.add(LocalDate.now().plusDays(i));
-		}
-		
-		return availability;
+		return getAvailability(LocalDate.now(), numDays);
+	}
+	
+	public List<LocalDate> getAvailability(LocalDate from, int numDays) {
+		return Stream.iterate(from, date -> date.plusDays(1)).limit(numDays).collect(Collectors.toList());
 	}
 	
 	public Establishment getEstablishment() {

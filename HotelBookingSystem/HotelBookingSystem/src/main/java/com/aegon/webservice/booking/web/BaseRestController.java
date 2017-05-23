@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
 import com.aegon.webservice.booking.model.Booking;
 import com.aegon.webservice.errors.InvalidDataException;
 import com.aegon.webservice.errors.ResourceNotFoundException;
@@ -17,15 +20,18 @@ public abstract class BaseRestController {
                 .collect(Collectors.toList());
 	}
 	
-	protected <T> ResponseWrapper<List<T>> generateGetResponse(List<T> records) throws ResourceNotFoundException {
+	protected <T> ResponseEntity<ResponseWrapper<List<T>>> generateGetResponse(List<T> records)
+			throws ResourceNotFoundException {
 		if (records.size() == 0) {
 			throw new ResourceNotFoundException("No resource found");
 		}
-		
-		return new ResponseWrapper<List<T>>(records, ResponseStatusType.SUCCESS);
+
+		return new ResponseEntity<ResponseWrapper<List<T>>>(
+				new ResponseWrapper<List<T>>(records, ResponseStatusType.SUCCESS), HttpStatus.OK);
 	}
 
-	protected <T,R> ResponseWrapper<List<R>> generateGetResponse(List<T> records, Function<T, R> mapper) throws ResourceNotFoundException {
+	protected <T, R> ResponseEntity<ResponseWrapper<List<R>>> generateGetResponse(List<T> records,
+			Function<T, R> mapper) throws ResourceNotFoundException {
 		return generateGetResponse(convertToDto(records, mapper));
 	}
 	

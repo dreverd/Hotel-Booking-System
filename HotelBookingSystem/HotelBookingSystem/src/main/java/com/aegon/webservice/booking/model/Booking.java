@@ -39,12 +39,14 @@ public class Booking {
 
     public Booking( long bookingId, 
     				Customer customer, 
-    				Room room, 
+    				Room room,
+    				Establishment establishment,
     				LocalDate checkIn, 
     				LocalDate checkOut) {
     	this.bookingId = bookingId;
     	this.customer = customer;
     	this.room = room;
+    	this.establishment = establishment;
     	this.checkIn = checkIn;
     	this.checkOut = checkOut;
 	}

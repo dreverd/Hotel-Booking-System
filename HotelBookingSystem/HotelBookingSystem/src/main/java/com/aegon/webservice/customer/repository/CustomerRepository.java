@@ -1,4 +1,4 @@
-package com.aegon.webservice.customer.dao;
+package com.aegon.webservice.customer.repository;
 
 import org.springframework.data.repository.Repository;
 

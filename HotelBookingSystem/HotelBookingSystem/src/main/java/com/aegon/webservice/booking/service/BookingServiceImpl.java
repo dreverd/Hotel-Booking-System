@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.aegon.webservice.booking.api.BookingService;
-import com.aegon.webservice.booking.dao.BookingRepository;
 import com.aegon.webservice.booking.model.Booking;
+import com.aegon.webservice.booking.repository.BookingRepository;
 import com.aegon.webservice.errors.NoAvailabilityException;
 
 @Component("bookingService")

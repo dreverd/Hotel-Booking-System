@@ -1,4 +1,4 @@
-package com.aegon.webservice.room.dao;
+package com.aegon.webservice.room.repository;
 
 import org.springframework.data.repository.Repository;
 

@@ -44,19 +44,19 @@ public class BookingRestController extends BaseRestController {
 	private RoomService roomService;
 	
 	@RequestMapping(value = "/room/{roomId}", method = RequestMethod.GET)
-    public ResponseWrapper<List<BookingResponse>> getBookingsByRoom(@PathVariable long roomId) throws ResourceNotFoundException {
+    public ResponseEntity<ResponseWrapper<List<BookingResponse>>> getBookingsByRoom(@PathVariable long roomId) throws ResourceNotFoundException {
 		List<Booking> bookings = bookingService.getBookingsForRoom(roomId);
 		return generateGetResponse(bookings, booking -> new BookingResponse(booking));
     }	
 
 	@RequestMapping(value = "/customer/{customerId}", method = RequestMethod.GET)
-    public ResponseWrapper<List<BookingResponse>> getBookingsByCustomer(@PathVariable long customerId) throws ResourceNotFoundException {
+    public ResponseEntity<ResponseWrapper<List<BookingResponse>>> getBookingsByCustomer(@PathVariable long customerId) throws ResourceNotFoundException {
 		List<Booking> bookings = bookingService.getBookingsForCustomer(customerId);
 		return generateGetResponse(bookings, booking -> new BookingResponse(booking));
     }	
 	
 	@RequestMapping(value = "/room/{roomId}/availability/from/{from}/to/{to}", method = RequestMethod.GET)
-    public ResponseWrapper<List<LocalDate>> getAvailabilityForRoom(@PathVariable long roomId, 
+    public ResponseEntity<ResponseWrapper<List<LocalDate>>> getAvailabilityForRoom(@PathVariable long roomId, 
     										 @PathVariable @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate from,
 		 									 @PathVariable @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate to ) throws ResourceNotFoundException {
 		List<LocalDate> dates = bookingService.getAvailabilityForRoom(roomId, from, to);

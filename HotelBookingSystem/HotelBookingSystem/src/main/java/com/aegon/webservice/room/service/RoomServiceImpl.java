@@ -5,8 +5,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.aegon.webservice.room.api.RoomService;
-import com.aegon.webservice.room.dao.RoomRepository;
 import com.aegon.webservice.room.model.Room;
+import com.aegon.webservice.room.repository.RoomRepository;
 
 
 @Component("roomService")

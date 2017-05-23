@@ -5,8 +5,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.aegon.webservice.customer.api.CustomerService;
-import com.aegon.webservice.customer.dao.CustomerRepository;
 import com.aegon.webservice.customer.model.Customer;
+import com.aegon.webservice.customer.repository.CustomerRepository;
 
 @Component("customerService")
 @Transactional

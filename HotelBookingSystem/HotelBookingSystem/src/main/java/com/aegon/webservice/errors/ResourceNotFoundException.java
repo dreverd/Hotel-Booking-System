@@ -1,6 +1,8 @@
 package com.aegon.webservice.errors;
 
-public class ResourceNotFoundException extends Exception {
+import org.springframework.http.HttpStatus;
+
+public class ResourceNotFoundException extends Exception implements ExceptionHttpStatus {
 	private static final long serialVersionUID = 1L;
     private String errorMessage;
 
@@ -16,4 +18,8 @@ public class ResourceNotFoundException extends Exception {
 	public ResourceNotFoundException() {
         super();
     }
+
+	public HttpStatus getHttpStatus() {
+		return HttpStatus.NOT_FOUND;
+	}
 }
